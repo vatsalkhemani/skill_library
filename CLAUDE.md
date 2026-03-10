@@ -49,3 +49,7 @@ argument-hint: [optional hint for arguments]
 | `narrative-builder` | Build product positioning, strategy narratives, stakeholder pitches, and launch stories |
 | `competitive-analysis` | Perform competitive analysis, moat evaluation, and positioning using 7 Powers, Aggregation Theory, and Wardley Mapping |
 | `metric-design` | Design metric frameworks, North Star metrics, A/B experiments, and retention cohort analysis |
+| `deep-thinker` | First-principles reasoning to break complex problems into fundamental truths and rebuild from scratch |
+| `marketing-strategist` | 139 proven SaaS marketing ideas organized by stage, budget, timeline, and use case |
+| `gtm-planner` | Go-to-market strategy, ICP definition, April Dunford positioning, launch playbooks, and sales enablement |
+| `deep-learner` | Interactive learning exercises during AI-assisted coding to build genuine expertise |

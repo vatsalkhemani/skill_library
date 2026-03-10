@@ -25,14 +25,28 @@ Claude Code skills are structured prompt files that teach Claude specialized beh
 | [competitive-analysis](.claude/skills/competitive-analysis/SKILL.md) | `/competitive-analysis` | Perform competitive analysis, moat evaluation, market entry assessment, and positioning using 7 Powers, Aggregation Theory, Christensen Disruption, and Wardley Mapping. |
 | [metric-design](.claude/skills/metric-design/SKILL.md) | `/metric-design` | Design metric frameworks, North Star metrics, metric decomposition trees, A/B experiments, retention cohort analysis, and Goodhart's Law countermeasures. |
 
+### Marketing & GTM
+
+| Skill | Trigger | Description | Source |
+|---|---|---|---|
+| [marketing-strategist](.claude/skills/marketing-strategist/SKILL.md) | `/marketing-strategist` | 139 proven SaaS marketing ideas organized by stage, budget, timeline, and use case. Covers content/SEO, paid ads, partnerships, product-led growth, and more. | [syntax-syndicate/marketing-skills](https://github.com/syntax-syndicate/marketing-skills) |
+| [gtm-planner](.claude/skills/gtm-planner/SKILL.md) | `/gtm-planner` | Full go-to-market playbook: ICP definition, April Dunford positioning, competitive battlecards, tiered launch planning, sales enablement, and international expansion. | [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) |
+
+### Thinking & Learning
+
+| Skill | Trigger | Description | Source |
+|---|---|---|---|
+| [deep-thinker](.claude/skills/deep-thinker/SKILL.md) | `/deep-thinker` | First-principles reasoning framework. Break complex problems into fundamental truths by questioning assumptions and rebuilding from irreducible components. Includes mental traps, 5 Whys, and verification checklists. | [tjboudreaux/cc-thinking-skills](https://github.com/tjboudreaux/cc-thinking-skills) |
+| [deep-learner](.claude/skills/deep-learner/SKILL.md) | `/deep-learner [orient]` | Interactive learning exercises during AI-assisted coding. Offers prediction/observation/reflection, generation/comparison, trace-the-path, debug-this, and teach-it-back exercises with fading scaffolding. | [DrCatHicks/learning-opportunities](https://github.com/DrCatHicks/learning-opportunities) |
+
 ## Usage
 
 ### Option 1: Copy a skill into your project
 
 ```bash
 # From within your target project
-mkdir -p .claude/skills/problem-framer
-cp <path-to-this-repo>/.claude/skills/problem-framer/SKILL.md .claude/skills/problem-framer/SKILL.md
+mkdir -p .claude/skills/deep-thinker
+cp <path-to-this-repo>/.claude/skills/deep-thinker/SKILL.md .claude/skills/deep-thinker/SKILL.md
 ```
 
 ### Option 2: Add this repo as a secondary working directory
@@ -64,9 +78,17 @@ In your Claude Code settings, add this repo as an additional working directory. 
   skills/
     competitive-analysis/
       SKILL.md
+    deep-learner/
+      SKILL.md
+    deep-thinker/
+      SKILL.md
     discovery/
       SKILL.md
+    gtm-planner/
+      SKILL.md
     linkedin-writer/
+      SKILL.md
+    marketing-strategist/
       SKILL.md
     metric-design/
       SKILL.md
