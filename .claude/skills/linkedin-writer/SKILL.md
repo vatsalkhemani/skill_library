@@ -1,5 +1,5 @@
 ---
-name: linkedin-post
+name: linkedin-writer
 description: Write a LinkedIn post in the owner's voice. Use when asked to draft, write, or brainstorm a LinkedIn post.
 argument-hint: [topic or idea]
 ---

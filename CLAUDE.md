@@ -33,7 +33,7 @@ argument-hint: [optional hint for arguments]
 
 ## Conventions
 
-- Skill folder names use kebab-case: `linkedin-post`, not `LinkedIn_post`
+- Skill folder names use kebab-case: `linkedin-writer`, not `LinkedIn_post`
 - One SKILL.md per skill folder
 - Skills should be self-contained — all instructions, examples, and rules in a single file
 - Do not add files outside `.claude/skills/` unless they are repo-level docs (README, CLAUDE.md, LICENSE)
@@ -42,4 +42,10 @@ argument-hint: [optional hint for arguments]
 
 | Skill | Description |
 |---|---|
-| `linkedin-post` | Draft LinkedIn posts in the owner's builder-PM voice |
+| `linkedin-writer` | Draft LinkedIn posts in the owner's builder-PM voice |
+| `problem-framer` | Decompose vague problems into structured problem statements with 5 Whys, JTBD, opportunity sizing, and ICE/RICE prioritization |
+| `discovery` | Synthesize user research, analyze interviews, run discovery sprints, and build research-backed hypotheses |
+| `spec-writer` | Write zero-question product specs, feature specs, API contracts, and agent task specs |
+| `narrative-builder` | Build product positioning, strategy narratives, stakeholder pitches, and launch stories |
+| `competitive-analysis` | Perform competitive analysis, moat evaluation, and positioning using 7 Powers, Aggregation Theory, and Wardley Mapping |
+| `metric-design` | Design metric frameworks, North Star metrics, A/B experiments, and retention cohort analysis |
