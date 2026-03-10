@@ -53,3 +53,7 @@ argument-hint: [optional hint for arguments]
 | `marketing-strategist` | 139 proven SaaS marketing ideas organized by stage, budget, timeline, and use case |
 | `gtm-planner` | Go-to-market strategy, ICP definition, April Dunford positioning, launch playbooks, and sales enablement |
 | `deep-learner` | Interactive learning exercises during AI-assisted coding to build genuine expertise |
+| `pricing-strategist` | SaaS pricing design, tier structure, value metrics, Van Westendorp research, and price increase strategy |
+| `agile-owner` | User story writing, acceptance criteria, sprint planning, epic breakdown, and backlog prioritization |
+| `ux-researcher` | Data-driven persona generation, journey mapping, usability testing, and research synthesis |
+| `product-strategist` | OKR cascade generation, quarterly planning, product vision, and team scaling proposals |
