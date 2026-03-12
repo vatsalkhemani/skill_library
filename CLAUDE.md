@@ -57,3 +57,6 @@ argument-hint: [optional hint for arguments]
 | `agile-owner` | User story writing, acceptance criteria, sprint planning, epic breakdown, and backlog prioritization |
 | `ux-researcher` | Data-driven persona generation, journey mapping, usability testing, and research synthesis |
 | `product-strategist` | OKR cascade generation, quarterly planning, product vision, and team scaling proposals |
+| `product-thinker` | Foundational product thinking — decisions, trade-offs, user problems, and product sense |
+| `frontend-designer` | Design and build beautiful, modern, interactive web UIs with visual hierarchy, typography, color, spacing, and animations |
+| `storyteller` | Craft compelling stories for pitches, presentations, blog posts, launches, and team communication |
