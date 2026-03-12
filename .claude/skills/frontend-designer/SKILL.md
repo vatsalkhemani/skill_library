@@ -1,7 +1,7 @@
 ---
 name: frontend-designer
 description: "Design and build beautiful, modern, interactive web UIs. Use when creating landing pages, dashboards, web apps, components, or any frontend work where visual quality matters. Produces a UI Design Brief + production code. Encodes visual hierarchy, typography systems, color architecture, spatial grids, component patterns, animation principles, responsive strategy, and page-type design systems. Trigger keywords: design, beautiful, UI, landing page, dashboard, frontend, make it look good, polish, redesign, modern UI."
-argument-hint: [page or component to design]
+argument-hint: "page or component to design"
 ---
 
 ## Purpose
@@ -99,6 +99,49 @@ Design decisions carry different levels of certainty. Annotate decisions that th
 - **Locked** — Driven by constraints (WCAG contrast, touch target minimums, viewport math). Not negotiable.
 - **Recommended** — Best practice with strong evidence. The user can override with a reason.
 - **Proposed** — Opinionated choice (color temperature, border radius personality, animation timing). Flag these so the user knows they can adjust.
+
+---
+
+## Output Template (Mandatory Structure)
+
+Every UI implementation MUST include a **UI Design Brief** (inline or as a preamble) before the code. The brief makes design decisions visible and reviewable. The code is the primary deliverable; the brief is the scaffolding.
+
+```markdown
+# UI Design Brief: [Page or component name]
+
+> **User:** [who this is for]
+> **Primary action:** [the ONE thing the user should do]
+> **Mood:** [trust / energy / calm / playful / authority / neutral]
+> **Stack:** [React + Tailwind / vanilla / Vue / etc.]
+> **Device:** [mobile-first / desktop-primary / responsive-all]
+
+---
+
+## Design Foundations
+
+**Typography:** [font(s), scale ratio, body size]
+**Color:** [primary, neutral scale, accent — with rationale]
+**Spacing:** [base unit, key spacing tokens]
+**Elevation:** [borders / shadows / surface shifts — which and why]
+
+---
+
+## Key Design Decisions
+
+| Decision | Choice | Rationale | Confidence |
+|---|---|---|---|
+| [e.g., Layout direction] | [e.g., Left sidebar + content] | [e.g., Dashboard convention, users scan nav first] | [Locked/Recommended/Proposed] |
+| [e.g., Border radius] | [e.g., rounded-xl] | [e.g., Friendly, consumer-facing tone] | [Proposed] |
+| ... | ... | ... | ... |
+
+---
+
+## Review Checklist
+
+[Run the full checklist — all Locked items must pass]
+```
+
+Then: the production code implementation.
 
 ---
 
