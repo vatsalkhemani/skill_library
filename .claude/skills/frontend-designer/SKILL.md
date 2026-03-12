@@ -1,360 +1,392 @@
 ---
 name: frontend-designer
-description: "Design and build beautiful, modern, interactive web UIs. Use when creating landing pages, dashboards, web apps, or any frontend work where visual quality matters. Covers visual hierarchy, typography, color, spacing, layout, animations, responsive design, and component architecture. Trigger keywords: design, beautiful, UI, landing page, dashboard, frontend, make it look good, polish, redesign, modern UI."
+description: "Design and build beautiful, modern, interactive web UIs. Use when creating landing pages, dashboards, web apps, components, or any frontend work where visual quality matters. Produces a UI Design Brief + production code. Encodes visual hierarchy, typography systems, color architecture, spatial grids, component patterns, animation principles, responsive strategy, and page-type design systems. Trigger keywords: design, beautiful, UI, landing page, dashboard, frontend, make it look good, polish, redesign, modern UI."
 argument-hint: [page or component to design]
 ---
 
-You are an elite frontend designer and engineer. You think visually, design with intention, and write production-quality frontend code. Every pixel matters. Every interaction should feel deliberate. You build interfaces that people notice and remember.
+## Purpose
 
-## Core Philosophy
+Produce a **UI Design Brief + Production Code** — an implementation so intentional that every visual decision can be traced to a purpose (guide attention, reduce cognitive load, communicate hierarchy, or create delight). The output is not a generic template with swapped colors — it is a designed system: consistent spacing, calibrated typography, structured color, purposeful motion, and responsive behavior. The kind of UI work that looks "obviously right" but requires dozens of deliberate decisions to achieve.
 
-**Design is not decoration. Design is how it works.**
+## When to Use / When NOT to Use
 
-Every visual decision must serve a purpose: guide attention, reduce cognitive load, communicate hierarchy, or create delight. If a design choice doesn't serve the user, remove it.
-
-## When to Use This Skill
-
-- Building a new page, component, or layout
-- Improving the visual quality of existing UI
+**Use this skill when:**
+- Building a new page, layout, or component where visual quality matters
 - Creating landing pages, marketing pages, or product pages
 - Designing dashboards, admin panels, or data-heavy interfaces
-- When the user says: "make it look good", "polish this", "redesign", "modern UI"
+- Improving the visual quality of existing UI ("make it look good", "polish this")
+- Building a design system or component library
+- The user shows you a screenshot or wireframe and wants it implemented beautifully
 
-## When NOT to Use
-
+**Do NOT use this skill when:**
 - Pure backend/API work with no UI component
-- Performance optimization without visual changes
-- Accessibility audits (complement with dedicated a11y review)
+- Performance optimization without visual changes (that's engineering)
+- Accessibility audits only (complement with a dedicated a11y review — this skill enforces WCAG AA as a baseline, not as a sole focus)
+- The user wants a quick unstyled prototype to test logic (use plain HTML or a UI framework directly)
+- Content writing or copywriting (→ storyteller skill for narrative, linkedin-writer for social)
+
+**Anti-inputs (what this skill does NOT handle):**
+- UX research or user testing (→ ux-researcher skill)
+- Product strategy or feature decisions (→ product-thinker skill)
+- Brand identity or logo design (this skill implements an existing brand, it doesn't create one)
+- Motion design for video/animation production (this is UI motion, not motion graphics)
 
 ---
 
-## Step 0: Understand Before Designing
+## Format Rules
 
-Before writing any code, answer:
+These rules govern every design output. They are not aesthetic preferences — they are quality enforcement mechanisms derived from how design actually fails in production.
 
-1. **Who is the user?** (developer, consumer, enterprise buyer, internal team)
-2. **What is the primary action?** (sign up, read, configure, purchase, explore)
-3. **What mood should the UI convey?** (trust, energy, calm, playfulness, authority)
-4. **What device context?** (mobile-first, desktop-primary, responsive across all)
-5. **What tech stack?** (React, Next.js, vanilla HTML, Vue, Svelte — adapt accordingly)
+### Rule 1: Every Visual Decision Gets a Rationale
 
-If the user hasn't specified, ask. Don't guess on mood or primary action.
+Never make a design choice without being able to answer "why." Color, spacing, typography, layout, motion — each carries a brief inline rationale on first use. Not "I chose blue" but "Primary action uses `blue-600` — high contrast against the neutral canvas, consistent with the brand's trust signal, passes WCAG AA at 4.7:1."
+
+**Why this matters:** Design without rationale is decoration. Rationale makes designs defensible in review, consistent across iterations, and debuggable when something "feels off."
+
+### Rule 2: Design Token Architecture is Mandatory
+
+Never use hardcoded values (`#3b82f6`, `16px`, `8px`). Every value traces to a design token:
+- **Primitives** → `--color-blue-600`, `--space-4`, `--text-base`
+- **Semantic** → `--color-primary`, `--space-section`, `--text-body`
+- **Component** → `--button-bg`, `--card-padding`, `--nav-height`
+
+Tailwind classes count as tokens. Raw hex/px values in CSS do not.
+
+**Why this matters:** Hardcoded values create invisible inconsistency. Two blues that are 2% different look like a mistake. Tokens enforce consistency at the system level and make dark mode, theming, and responsive adjustments trivial.
+
+### Rule 3: The Squint Test is a Gate, Not a Suggestion
+
+Before presenting any design, apply the squint test: blur or squint at the screen. If the primary element isn't immediately obvious, the hierarchy is broken. Fix it before adding anything else.
+
+**Why this matters:** Users don't read UIs — they scan. If hierarchy fails the squint test, no amount of polish fixes the core problem. This is the single most predictive test of whether a UI "works."
+
+### Rule 4: Design System Before Components
+
+Before coding any component, establish the four foundations:
+1. **Type scale** (sizes, weights, line heights, letter spacing)
+2. **Color system** (neutral scale, primary, semantic colors, contrast ratios)
+3. **Spacing grid** (base unit, scale, section rhythm)
+4. **Elevation strategy** (borders OR shadows OR surface color — pick ONE, not all three)
+
+Components built without these foundations will be internally inconsistent.
+
+**Why this matters:** A button without a type scale is a guess. A card without a spacing grid is eyeballed. Design systems eliminate eyeballing and produce outputs that feel "inevitably right."
+
+### Rule 5: State Coverage is Non-Negotiable
+
+Every interactive element must have: **default → hover → active → focus → disabled**. Every data-dependent view must have: **loading → empty → populated → error**. Missing states are bugs, not TODOs.
+
+**Why this matters:** An interface without loading states feels broken. A button without a focus state fails accessibility. State coverage is what separates "prototype" from "production."
+
+### Rule 6: Mobile-First is a Build Order, Not a Philosophy
+
+Write base styles for mobile. Layer desktop enhancements with `min-width` breakpoints. Test at 320px — if it works there, it works everywhere.
+
+**Why this matters:** Mobile-first prevents the common failure of building a desktop layout and then trying to "shrink" it. Subtraction is harder than addition.
+
+### Rule 7: Animation Serves Communication, Not Decoration
+
+Every animation must answer: "What information does this motion communicate?" If the answer is "none, it looks cool," remove it. Valid purposes: spatial relationship (where something came from), state change (something updated), attention direction (look here), feedback (your action registered).
+
+**Why this matters:** Gratuitous animation creates motion sickness risk, degrades performance, and trains users to ignore motion — which means purposeful motion stops working too.
 
 ---
 
-## Visual Hierarchy — The Most Important Principle
+## Design Confidence Levels
 
-Every screen must have a clear visual hierarchy. The user's eye should follow a predictable path: **primary element → supporting context → secondary actions → peripheral info**.
+Design decisions carry different levels of certainty. Annotate decisions that the user might want to adjust:
 
-### How to Create Hierarchy
+- **Locked** — Driven by constraints (WCAG contrast, touch target minimums, viewport math). Not negotiable.
+- **Recommended** — Best practice with strong evidence. The user can override with a reason.
+- **Proposed** — Opinionated choice (color temperature, border radius personality, animation timing). Flag these so the user knows they can adjust.
 
-| Technique | When to use | Example |
+---
+
+## Step 0: Context Fitness Check
+
+Before designing, answer these five questions. If the user hasn't provided answers, ask — don't guess on #3 and #5.
+
+| Question | Why it matters | Default if unspecified |
 |---|---|---|
-| **Size contrast** | Distinguish headings from body, CTAs from secondary links | H1 at 48-64px, body at 16-18px, caption at 12-14px |
-| **Weight contrast** | Emphasize key words or labels within same-size text | Bold the metric value, regular weight for the label |
-| **Color contrast** | Draw attention to primary actions, status indicators | Primary CTA in brand color, secondary in neutral |
-| **Spatial separation** | Group related items, separate distinct sections | 24-32px between groups, 8-12px within groups |
-| **Elevation/depth** | Lift interactive elements, create layering | Cards with subtle shadow, modals with backdrop |
-| **Motion** | Direct attention to state changes or new content | Fade-in for new items, slide for navigation |
-
-### The Squint Test
-
-If you squint at the page and can't tell what the primary element is, the hierarchy is broken. Fix it before adding anything else.
+| **1. Who is the user?** | Developer vs consumer vs enterprise buyer requires fundamentally different density, language, and visual tone | Assume general consumer |
+| **2. What is the primary action?** | Every screen has ONE thing the user should do. The entire hierarchy serves this | Ask — cannot default safely |
+| **3. What mood should the UI convey?** | Trust vs energy vs calm vs playfulness drives color temperature, type weight, spacing density, and animation style | Clean and modern (neutral) |
+| **4. What device context?** | Mobile-first, desktop-primary, or responsive-all determines layout strategy and touch target sizing | Responsive-all |
+| **5. What tech stack?** | React + Tailwind, vanilla HTML/CSS, Vue, Svelte — determines implementation patterns and available primitives | React + Tailwind |
 
 ---
 
-## Typography
+## The Four Design Foundations (Establish Before Any Component)
+
+### Foundation 1: Typography System
 
 Typography is 80% of web design. Get this right and the rest follows.
 
-### Scale
+**Type Scale** — Use a consistent ratio. Recommended: **16px base, 1.25 ratio (Major Third)**:
 
-Use a consistent type scale. Recommended base: **16px body** with a **1.25 ratio** (Major Third):
+| Token | Size | Use |
+|---|---|---|
+| `text-xs` | 12px | Captions, metadata, labels |
+| `text-sm` | 14px | Secondary text, table cells, helper text |
+| `text-base` | 16px | Body text, paragraphs |
+| `text-lg` | 18px | Lead paragraphs, emphasized body |
+| `text-xl` | 20px | Subsection headings (h4) |
+| `text-2xl` | 24px | Section subheadings (h3) |
+| `text-3xl` | 30px | Section headings (h2) |
+| `text-4xl` | 36px | Page headings (h1) |
+| `text-5xl` | 48px | Hero headings |
+| `text-6xl` | 64px | Display / landing hero |
 
-```
-xs:    12px  — captions, labels, metadata
-sm:    14px  — secondary text, table cells
-base:  16px  — body text, paragraphs
-lg:    18px  — lead paragraphs, emphasized body
-xl:    20px  — section subheadings (h4)
-2xl:   24px  — subsection headings (h3)
-3xl:   30px  — section headings (h2)
-4xl:   36px  — page headings (h1)
-5xl:   48px  — hero headings
-6xl:   64px  — display/landing hero
-```
+**Rules:**
+- **Line height**: 1.5 for body, 1.2-1.3 for headings, 1.0-1.1 for display [Locked — readability]
+- **Line length**: 60-75 characters max. Use `max-width: 65ch` [Locked — readability research]
+- **Font pairing**: Maximum two fonts. One for UI/body, one for headings. More is noise [Recommended]
+- **Weight range**: 400 (regular), 500 (medium), 600 (semibold), 700 (bold). Skip extremes [Recommended]
+- **Letter spacing**: Tighten headings (-0.02em), body at 0, all-caps at +0.05em [Recommended]
+- **Font choice**: Inter, Geist, or system fonts for clean UI. Distinctive fonts (Satoshi, Outfit, GT America) when personality matters [Proposed — user may have brand font]
 
-### Rules
+### Foundation 2: Color Architecture
 
-- **Line height**: 1.5 for body, 1.2-1.3 for headings, 1.0 for display text
-- **Line length**: 60-75 characters max for readability. Use `max-width: 65ch` on text containers
-- **Font pairing**: One sans-serif for UI + one for headings is enough. Two fonts max. Three is almost always too many
-- **Weight range**: Use 400 (regular), 500 (medium), 600 (semibold), 700 (bold). Skip 300/800 unless the design system calls for it
-- **Letter spacing**: Tighten headings slightly (-0.02em). Body stays at 0. All-caps gets +0.05-0.1em
-- **Font choice**: Inter, Geist, or system fonts for clean UI. Avoid decorative fonts unless explicitly requested
+**System — every interface needs these semantic layers:**
+
+| Layer | Light mode | Dark mode | Purpose |
+|---|---|---|---|
+| `background` | white | zinc-950 | Base canvas |
+| `surface` | zinc-50 | zinc-900 | Cards, panels, elevated areas |
+| `border` | zinc-200 | zinc-800 | Dividers, input borders |
+| `text-primary` | zinc-900 | zinc-50 | Headings, body text |
+| `text-secondary` | zinc-500 | zinc-400 | Labels, captions |
+| `text-tertiary` | zinc-400 | zinc-600 | Placeholders, disabled text |
+| `primary` | brand color | brand color (adjusted) | CTAs, active states, links |
+| `success` | green-600 | green-400 | Confirmations, positive metrics |
+| `warning` | amber-600 | amber-400 | Caution states |
+| `destructive` | red-600 | red-400 | Errors, delete actions |
+
+**Rules:**
+- **3-color rule**: One primary, one neutral scale, one accent. That's the budget for most interfaces [Recommended]
+- **60-30-10**: 60% neutral/background, 30% secondary/surface, 10% accent/primary [Recommended]
+- **Contrast**: WCAG AA minimum — 4.5:1 for text, 3:1 for large text and UI elements [Locked — accessibility]
+- **Dark mode**: Elevated surfaces (zinc-900 → zinc-800 → zinc-700) create depth. Don't just invert [Locked — dark mode breaks otherwise]
+- **Never rely on color alone for meaning**: Always pair with text, icon, or shape [Locked — accessibility]
+
+### Foundation 3: Spatial Grid
+
+**Base unit: 4px.** Everything aligns to multiples of 4.
+
+| Token | Value | Use |
+|---|---|---|
+| `space-1` | 4px | Icon gaps, tight internal padding |
+| `space-2` | 8px | Default internal padding, small gaps |
+| `space-3` | 12px | Compact component padding |
+| `space-4` | 16px | Standard component padding, default gap |
+| `space-5` | 20px | Comfortable padding |
+| `space-6` | 24px | Section internal spacing |
+| `space-8` | 32px | Between related sections |
+| `space-10` | 40px | Between distinct sections |
+| `space-12` | 48px | Major section breaks |
+| `space-16` | 64px | Page section separation |
+| `space-20` | 80px | Hero/landing section separation |
+
+**Rules:**
+- **Consistent spacing > pixel-perfect spacing.** Two sections with different gaps for no reason is a hierarchy bug [Locked]
+- **Container max-width**: 1280px for content, 1440px for full-width. Center with auto margins [Recommended]
+- **Page padding**: 16px mobile, 24-32px tablet, 32-64px desktop [Recommended]
+- **Grid**: CSS Grid for page layout, Flexbox for component alignment [Recommended]
+- **Whitespace is a feature.** When in doubt, add more space. Cramped layouts feel cheap [Recommended]
+
+### Foundation 4: Elevation Strategy
+
+**Choose ONE primary elevation mechanism and commit. Mixing all three looks undesigned.**
+
+| Strategy | When to use | Implementation |
+|---|---|---|
+| **Borders only** | Dense UIs, dashboards, data-heavy. Clean and systematic | `border border-zinc-200` (light), `border border-zinc-800` (dark) |
+| **Subtle shadows** | Consumer apps, landing pages. Feels layered and physical | `shadow-sm` for cards, `shadow-md` for modals, `shadow-lg` for dropdowns |
+| **Surface color shifts** | Minimal UIs, dark mode optimized. Quiet and sophisticated | Background → surface → elevated via zinc shade shifts |
+
+**Rules:**
+- Borders AND shadows on the same element is visual clutter. Pick one [Locked]
+- Dark mode: shadows are near-invisible. Switch to borders or surface shifts [Locked]
+- Elevation increases toward the user: page < card < dropdown < modal < toast [Locked — spatial model]
 
 ---
 
-## Color
-
-### System
-
-Build every interface with a structured color system:
-
-```
-Background:     base canvas (white / zinc-950)
-Surface:        cards, panels (zinc-50 / zinc-900)
-Border:         dividers, input borders (zinc-200 / zinc-800)
-Text primary:   headings, body (zinc-900 / zinc-50)
-Text secondary: labels, captions (zinc-500 / zinc-400)
-Text tertiary:  placeholders, disabled (zinc-400 / zinc-600)
-Primary:        CTAs, active states, links (brand color)
-Success:        confirmations, positive metrics (green)
-Warning:        caution states (amber)
-Destructive:    errors, delete actions (red)
-```
-
-### Rules
-
-- **3-color rule**: One primary brand color, one neutral scale, one accent. That's it for most interfaces
-- **60-30-10**: 60% neutral/background, 30% secondary/surface, 10% accent/primary
-- **Contrast**: WCAG AA minimum (4.5:1 for text, 3:1 for large text and UI elements)
-- **Saturation**: Keep UI colors desaturated. High saturation is for accents and status only
-- **Dark mode**: Don't just invert. Use elevated surfaces (zinc-900 → zinc-800 → zinc-700) to create depth instead of borders
-- **Opacity**: Use opacity for hover states (hover:bg-primary/10) and overlays, not for text
-
----
-
-## Spacing & Layout
-
-### Spacing Scale
-
-Use a consistent 4px/8px base grid:
-
-```
-1:   4px   — tight internal padding (icon gaps)
-2:   8px   — default internal padding, small gaps
-3:  12px   — compact component padding
-4:  16px   — standard component padding, default gap
-5:  20px   — comfortable padding
-6:  24px   — section internal spacing
-8:  32px   — between related sections
-10: 40px   — between distinct sections
-12: 48px   — major section breaks
-16: 64px   — page section separation
-20: 80px   — hero/landing section separation
-```
-
-### Layout Rules
-
-- **Consistent spacing > pixel-perfect spacing.** If two sections use different gaps for no reason, that's a bug
-- **Container max-width**: 1280px for content, 1440px for full-width layouts. Center with auto margins
-- **Padding**: Minimum 16px on mobile, 24-32px on tablet, 32-64px on desktop (page edges)
-- **Grid**: Use CSS Grid for page layout, Flexbox for component-level alignment. 12-column grid for complex layouts, simple 1-2-3 column for most content
-- **Whitespace is a feature**. When in doubt, add more space, not less. Cramped layouts feel cheap
-
----
-
-## Components — How to Build Common UI
+## Component Design Patterns
 
 ### Buttons
 
 ```
-Primary:    Filled background, white text, rounded-lg, px-6 py-3, font-medium
-Secondary:  Border only (outline), text in primary color, same size as primary
-Ghost:      No border, no fill, text only with hover background
-Destructive: Red variant of primary — use only for irreversible actions
+Primary:     Filled bg, white text, rounded-lg, px-6 py-3, font-medium
+Secondary:   Border only (outline), primary text color, same dimensions
+Ghost:       No border, no fill, hover:bg-zinc-100 (subtle highlight)
+Destructive: Red variant of primary — ONLY for irreversible actions
 
-States: default → hover (darken 10%) → active (darken 15%) → disabled (50% opacity, no pointer)
-Size: sm (px-3 py-1.5 text-sm), md (px-4 py-2 text-sm), lg (px-6 py-3 text-base)
+States:      default → hover (darken 10%) → active (darken 15%) → focus (ring-2) → disabled (50% opacity)
+Sizes:       sm (px-3 py-1.5 text-sm) | md (px-4 py-2 text-sm) | lg (px-6 py-3 text-base)
 ```
 
-Always have ONE primary CTA per viewport. If everything is emphasized, nothing is.
+**Rule: ONE primary CTA per viewport.** If everything is primary, nothing is [Locked — hierarchy].
 
 ### Cards
 
 ```
-Container:  bg-white rounded-xl border border-zinc-200 p-6
-            OR bg-white rounded-xl shadow-sm p-6 (elevation style)
-Hover:      shadow-md transition-shadow (if clickable)
-Content:    image/visual (top or left) → title → description → metadata → action
-Spacing:    16-24px padding, 12-16px between content blocks
+Container:   bg-white rounded-xl + [elevation strategy] + p-6
+Hover:       [elevation increase] + transition (if clickable). Non-clickable cards don't hover
+Content:     Image/visual → Title → Description → Metadata → Action
+Spacing:     16-24px padding, 12-16px between content blocks
 ```
 
 ### Forms
 
 ```
-Input:      h-10 px-3 rounded-lg border border-zinc-300 text-sm
-            focus:ring-2 focus:ring-primary/20 focus:border-primary
-Label:      text-sm font-medium text-zinc-700 mb-1.5 (above input, never floating)
-Helper:     text-xs text-zinc-500 mt-1
-Error:      text-xs text-red-600 mt-1, border-red-500 on input
-Group gap:  24px between form groups, 16px between label and next group
+Input:       h-10 px-3 rounded-lg border border-zinc-300 text-sm
+             focus:ring-2 focus:ring-primary/20 focus:border-primary
+Label:       text-sm font-medium text-zinc-700 mb-1.5 — ABOVE the input, always
+Helper:      text-xs text-zinc-500 mt-1
+Error:       text-xs text-red-600 mt-1 + border-red-500 on input
+Group gap:   24px between form groups
 ```
 
-Labels above inputs, always. Placeholder text is not a label.
+**Rule: Labels above inputs, always. Placeholder text is NOT a label** [Locked — accessibility, usability].
 
 ### Navigation
 
 ```
-Top nav:    h-16, sticky top-0, bg-white/80 backdrop-blur-md border-b, z-50
-Sidebar:    w-64, fixed left, bg-zinc-50, border-r, py-6 px-3
-Mobile nav: Bottom bar (h-16) for apps, hamburger menu for sites
-Active:     bg-primary/10 text-primary font-medium (sidebar)
-            border-b-2 border-primary text-primary (top nav)
+Top nav:     h-16, sticky top-0, bg-white/80 backdrop-blur-md border-b, z-50
+Sidebar:     w-64, fixed left, [surface color], border-r, py-6 px-3
+Mobile:      Bottom bar (h-16) for apps, hamburger for sites
+Active:      bg-primary/10 text-primary font-medium (sidebar)
+             border-b-2 border-primary (top tabs)
 ```
 
 ### Data Display
 
 ```
-Tables:     text-left, text-sm, divide-y divide-zinc-200
-            th: font-medium text-zinc-500 text-xs uppercase tracking-wider py-3
-            td: py-4 text-zinc-900
-            Striped or hover row highlight, not both
-Metrics:    Large number (text-3xl font-semibold) + label below (text-sm text-zinc-500)
-            Group in cards, 3-4 per row
-Status:     Colored dot (h-2 w-2 rounded-full) + text label. Never color alone
+Tables:      text-left, text-sm, divide-y divide-zinc-200
+             th: font-medium text-zinc-500 text-xs uppercase tracking-wider py-3
+             td: py-4 text-zinc-900
+Metrics:     Large number (text-3xl font-semibold) + label below (text-sm text-zinc-500)
+             Trend indicator (up/down arrow + percentage + color)
+Status:      Colored dot (h-2 w-2 rounded-full) + text label. Never color alone
 ```
 
 ---
 
-## Animation & Micro-Interactions
+## Animation System
 
-### Principles
+### Timing Rules [Locked — perceptual research]
 
-- **Purpose over decoration**: Every animation should communicate something (state change, spatial relationship, feedback)
-- **Fast**: 150-200ms for hover/click feedback. 200-300ms for enter/exit. 300-500ms for complex transitions. Never over 500ms
-- **Easing**: `ease-out` for enters (decelerating), `ease-in` for exits (accelerating), `ease-in-out` for position changes. Never `linear` for UI
+| Duration | Use |
+|---|---|
+| 100-150ms | Hover/click feedback, button press |
+| 150-200ms | Tooltip, dropdown open |
+| 200-300ms | Enter/exit transitions, panel expand |
+| 300-500ms | Complex transitions, page-level animation |
+| Never >500ms | Nothing in UI should take this long |
 
-### Common Patterns
+### Easing [Locked]
+
+- `ease-out` for enters (element arriving — decelerates)
+- `ease-in` for exits (element leaving — accelerates)
+- `ease-in-out` for position changes
+- Never `linear` for UI elements
+
+### Patterns
 
 ```css
-/* Hover lift */
-.card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1); }
+/* Hover lift — cards, buttons */
+transform: translateY(-2px); box-shadow: var(--shadow-md);
 transition: transform 150ms ease-out, box-shadow 150ms ease-out;
 
-/* Fade in */
+/* Content entrance — fade up */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } }
 animation: fadeIn 200ms ease-out;
 
-/* Skeleton loading */
-@keyframes shimmer { to { background-position: -200% 0; } }
-background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+/* Loading skeleton */
+background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
 background-size: 200% 100%;
+animation: shimmer 1.5s infinite;
 
-/* Button press */
-.button:active { transform: scale(0.97); }
-transition: transform 100ms ease-out;
+/* List stagger — 50-75ms per item, max 500ms total sequence */
+animation-delay: calc(var(--index) * 50ms);
 ```
 
-### Staggered animations for lists
-
-When loading a list/grid, stagger each item's entrance by 50-75ms. Don't exceed 500ms total for the full stagger sequence.
+**Rule: Always respect `prefers-reduced-motion`.** Wrap animations in `@media (prefers-reduced-motion: no-preference)` [Locked — accessibility].
 
 ---
 
-## Responsive Design
-
-### Breakpoints (Tailwind default)
-
-```
-sm:   640px   — Large phones landscape
-md:   768px   — Tablets
-lg:  1024px   — Small laptops
-xl:  1280px   — Desktops
-2xl: 1536px   — Large screens
-```
-
-### Strategy
-
-- **Mobile-first**: Write base styles for mobile, use min-width breakpoints to layer on
-- **Content-driven breakpoints**: If content breaks awkwardly between standard breakpoints, add a custom one. The content is the authority, not the breakpoint chart
-- **Touch targets**: Minimum 44x44px on mobile. 36px acceptable on desktop
-- **Stack on mobile, grid on desktop**: Most 2-3 column layouts should stack vertically on mobile
-- **Hide complexity on mobile**: Collapse secondary navigation, simplify data tables to cards, remove decorative elements
-- **Test at 320px**: If it works at 320px wide, it works everywhere
-
----
-
-## Design Patterns by Page Type
+## Page-Type Design Systems
 
 ### Landing Page
 
-```
-Structure:  Hero → Social proof → Features/Benefits → How it works → Testimonials → CTA → Footer
-Hero:       One clear headline (5-8 words), one subheadline (1-2 sentences), one CTA, one visual
-            Full viewport height or near it. Centered or left-aligned with right visual
-Social:     Logo bar ("Trusted by...") or metric bar ("10K+ users")
-Features:   3-column grid with icon + title + description. Or alternating left-right sections with visuals
-CTA:        Repeat the primary CTA at least twice (hero + bottom). Same wording each time
-```
+| Section | Structure | Key rules |
+|---|---|---|
+| **Hero** | One headline (5-8 words) + one subheadline (1-2 sentences) + one CTA + one visual | Full viewport or near it. ONE message, ONE action |
+| **Social proof** | Logo bar ("Trusted by...") or metric bar ("10K+ users") | Immediately after hero. Reduce buyer anxiety |
+| **Features** | 3-column grid (icon + title + description) OR alternating left-right with visuals | Benefits > features. What changes for the user |
+| **How it works** | 3-step numbered flow | Reduce perceived complexity |
+| **Testimonials** | Quote + name + role + photo | Real people, specific outcomes |
+| **Bottom CTA** | Repeat hero CTA with fresh angle | Same action, reinforced |
 
 ### Dashboard
 
-```
-Structure:  Top nav → Metric cards (3-4) → Primary chart/table → Secondary panels
-Metrics:    Current value (large) + trend indicator (up/down arrow + percentage) + sparkline (optional)
-Filters:    Top bar, left-aligned, with active filter indicators
-Data table: Sortable columns, search/filter, pagination (not infinite scroll for data-heavy views)
-Empty state: Illustration + message + CTA to add data. Never a blank screen
-```
+| Section | Structure | Key rules |
+|---|---|---|
+| **Metric cards** | 3-4 across top. Value + label + trend | Most important numbers at a glance |
+| **Primary view** | Chart or table — the ONE thing users check daily | Takes most visual weight and space |
+| **Filters** | Top bar, left-aligned, with active filter badges | Don't hide filters in dropdowns on dashboards |
+| **Empty state** | Illustration + message + CTA to add data | NEVER a blank screen |
 
 ### Settings / Form Page
 
-```
-Structure:  Left sidebar (categories) + right content area (form sections)
-Sections:   Group related fields with a heading + description
-Actions:    Sticky footer with Save/Cancel, OR auto-save with status indicator
-Dangerous:  Red zone at bottom for destructive actions (delete account, etc.) with confirmation
-```
+| Section | Structure | Key rules |
+|---|---|---|
+| **Navigation** | Left sidebar (categories) + right content (form) | Scannable sections |
+| **Groups** | Heading + description + fields | Related fields together |
+| **Actions** | Sticky footer: Save/Cancel | Or auto-save with status indicator |
+| **Danger zone** | Red section at bottom for destructive actions | Confirmation required |
 
 ---
 
-## Anti-Patterns — Never Do These
+## Anti-Patterns — Design Failures and Why They Fail
 
-| Pattern | Why it fails |
-|---|---|
-| Center-aligning body text | Destroys readability. Left-align body text always |
-| Using more than 3 font sizes on one component | Creates visual noise. Simplify the hierarchy |
-| Relying on color alone for meaning | Accessibility failure. Always pair color with text/icon |
-| Borders AND shadows on the same element | Visual clutter. Pick one elevation strategy |
-| Placeholder text as the only label | Disappears on focus, fails accessibility |
-| Fixed-width layouts that don't respond | Broken on half of all devices |
-| Animating everything | Motion sickness risk, performance cost, distracting |
-| Text over busy images without overlay | Unreadable. Add gradient overlay or solid background |
-| Low-contrast light gray text on white | Fails WCAG, unreadable in sunlight, looks faded |
-| Custom scrollbars, custom cursor, parallax on everything | Gimmicks that hurt usability |
-| Auto-playing carousels | Nobody reads past slide 1. Use static content |
+| Anti-Pattern | Mechanism of Failure | Detection |
+|---|---|---|
+| Center-aligned body text | Destroys readability — eye loses the left edge on every line return | Squint test: body text looks like a shape, not content |
+| >3 font sizes on one component | Fragments hierarchy — reader can't parse relative importance | Count distinct sizes in DevTools |
+| Color alone for meaning | ~8% of men are colorblind. Fails WCAG. Invisible to many users | Remove color: does meaning survive? |
+| Borders AND shadows on same element | Double-signaling elevation. Looks like a design tool artifact | Visual inspection: does the element have both? |
+| Placeholder-only labels | Disappears on focus. Screen readers may miss it. Users forget what field is for | Tab into field: can you tell what it wants? |
+| Fixed-width non-responsive layout | Broken on >50% of devices. Immediate credibility loss | Resize to 320px: does it work? |
+| Animating everything | Motion sickness risk (vestibular disorders). Performance cost. Users learn to ignore all motion | Remove all animations: what information was lost? |
+| Text over busy images without overlay | Unreadable. Contrast fails. Looks accidental | Squint test on the text area |
+| Auto-playing carousels | <1% interaction rate. Nobody reads past slide 1. Wastes prime screen real estate | Check analytics: carousel interaction rate |
+| Custom scrollbars + custom cursors | Breaks OS-level accessibility settings. Confuses muscle memory | Test with system accessibility zoom |
 
 ---
 
-## Tech-Specific Guidance
+## Review Checklist (Self-Check Before Presenting)
 
-### Tailwind CSS (preferred for rapid UI)
+Run this checklist before showing any design output. A "No" on any Locked item is a blocker.
 
-- Use the design system tokens, don't hardcode values: `text-zinc-500` not `text-[#71717a]`
-- Extract repeated patterns into components, not `@apply` classes
-- Use `group` and `group-hover:` for parent-child hover interactions
-- Use `ring` utilities for focus states, not `outline`
-- Dark mode: Use `dark:` variants with `class` strategy (not `media`)
-
-### shadcn/ui + Radix
-
-- Use shadcn components as the base, then customize. Don't reinvent dialogs, popovers, dropdowns
-- Override component styles via `className` prop, not CSS overrides
-- Use `cn()` helper for conditional classes: `cn("base-class", condition && "conditional-class")`
-
-### CSS Modules / Vanilla CSS
-
-- Use CSS custom properties for theming: `--color-primary`, `--space-4`, `--radius-lg`
-- Nest with `&` in modern CSS instead of BEM naming
-- Use `container queries` for component-level responsiveness where supported
-
-### Framer Motion / React Spring
-
-- `layout` prop for automatic layout animations
-- `AnimatePresence` for enter/exit animations
-- Keep motion values in a constants file for consistency: `spring: { stiffness: 300, damping: 30 }`
+| Check | Type | Pass? |
+|---|---|---|
+| Squint test: primary element is immediately obvious | Locked | |
+| WCAG AA contrast on all text (4.5:1 body, 3:1 large) | Locked | |
+| Touch targets ≥44x44px on mobile | Locked | |
+| All interactive elements have hover + focus + disabled states | Locked | |
+| Data views have loading + empty + error states | Locked | |
+| `prefers-reduced-motion` respected | Locked | |
+| No hardcoded color/spacing values — all tokens | Locked | |
+| Works at 320px viewport width | Locked | |
+| Labels on all form inputs (not placeholder-only) | Locked | |
+| ONE primary CTA per viewport | Recommended | |
+| Consistent elevation strategy (not mixed) | Recommended | |
+| Type scale is consistent (no ad-hoc sizes) | Recommended | |
+| Spacing follows the 4px grid | Recommended | |
+| Animation durations within specified ranges | Recommended | |
+| Color system uses ≤3 hues (primary, neutral, accent) | Proposed | |
+| Dark mode tested (if applicable) | Proposed | |
 
 ---
 
@@ -362,13 +394,20 @@ Dangerous:  Red zone at bottom for destructive actions (delete account, etc.) wi
 
 When the user requests a UI:
 
-1. **Clarify scope** — What page/component? Who uses it? What's the primary action? What stack?
-2. **Establish visual direction** — Minimal/clean, bold/energetic, professional/corporate, playful/creative? Default to clean and modern if unspecified
-3. **Structure first** — Layout, hierarchy, content blocks. Get the bones right
-4. **Build mobile-first** — Start at the smallest viewport, layer up
-5. **Apply the system** — Use consistent spacing, type scale, color system. No ad-hoc values
-6. **Add interactions** — Hover states, transitions, loading states, empty states
-7. **Polish** — Alignment, spacing consistency, border radius consistency, shadow consistency
-8. **Self-check** — Run through the anti-patterns table. Do the squint test. Check at 320px and 1440px
+1. **Step 0: Context** — Run the Context Fitness Check. If questions 2 or 3 are unanswered and can't be inferred, ask. Don't guess on primary action or mood.
 
-Present the code with a brief explanation of key design decisions. If you made opinionated choices (color, typography, layout direction), flag them so the user can adjust.
+2. **Establish foundations** — Before any component code, define: type scale, color system, spacing grid, elevation strategy. Present these as the **UI Design Brief** (can be inline code comments or a brief summary before the implementation).
+
+3. **Build mobile-first** — Start at 320px. Layer up with min-width breakpoints.
+
+4. **Implement with tokens** — Every value traces to a design token. No hardcoded hex, px, or magic numbers.
+
+5. **Cover all states** — Every interactive element gets its full state set. Every data view gets loading/empty/error.
+
+6. **Add purposeful motion** — Only animations that communicate. Respect `prefers-reduced-motion`.
+
+7. **Run the review checklist** — Every Locked item must pass. Flag any Recommended items you intentionally skipped and why.
+
+8. **Present with rationale** — Show the code. For key design decisions (color choice, layout direction, typography), add a brief rationale. Flag any Proposed choices the user might want to adjust: "I chose rounded-xl for a friendly feel — change to rounded-md for more professional."
+
+After presenting, offer: "Want me to adjust the color system, layout, spacing density, or any specific component?"
