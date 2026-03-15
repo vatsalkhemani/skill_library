@@ -27,6 +27,7 @@ A collection of useful [Claude Code](https://docs.anthropic.com/en/docs/claude-c
 ### Communication & Storytelling
 - [storyteller](.claude/skills/storyteller/SKILL.md)
 - [linkedin-writer](.claude/skills/linkedin-writer/SKILL.md)
+- [humanizer](.claude/skills/humanizer/SKILL.md)
 
 ### Thinking & Learning
 - [deep-thinker](.claude/skills/deep-thinker/SKILL.md)

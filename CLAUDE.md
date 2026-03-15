@@ -63,3 +63,4 @@ argument-hint: [optional hint for arguments]
 | `claude-api` | Build apps with the Claude API, Anthropic SDK, or Agent SDK (from Anthropic official skills) |
 | `webapp-testing` | Test local web apps using Python Playwright scripts (from Anthropic official skills) |
 | `mcp-builder` | Build MCP servers to connect LLMs to external APIs and services (from Anthropic official skills) |
+| `humanizer` | Remove signs of AI-generated writing from text using 24 patterns from Wikipedia's "Signs of AI writing" guide |
